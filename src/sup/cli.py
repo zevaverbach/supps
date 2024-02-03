@@ -7,8 +7,10 @@
   'numUnitsInServing': 134,
   'numBottles': 2}]
 """
+
 import datetime as dt
 import json
+import math
 import toml
 from typing_extensions import Annotated
 
@@ -21,6 +23,8 @@ from sup.main import (
     SUPP_CONSUMPTION_FP,
     load_inventory,
     Supp,
+    CONFIG,
+    ALIASES_REV,
 )
 
 app = typer.Typer()
@@ -30,17 +34,24 @@ class UnitMismatch(Exception):
     pass
 
 
-def get_qty_inventory(supp: Supp, inventory: dict) -> int:
+class Missing(Exception):
+    pass
+
+
+def get_qty_inventory(supp: Supp, inventory: dict, next_fill_date: dt.date) -> int:
     inventory_order_date = dt.datetime.strptime(
         inventory["orderDate"][:10], "%Y-%m-%d"
     ).date()
-    num_days_since_bought = (dt.date.today() - inventory_order_date).days
+    num_days_since_bought = (next_fill_date - inventory_order_date).days
     if inventory["servingUnit"] != supp.units:
         raise UnitMismatch(inventory, supp)
 
-    return (inventory["quantity"] * inventory["numBottles"]) - (
-        supp * num_days_since_bought
-    )
+    inv = (
+        inventory["quantity"] * inventory["numBottles"] * inventory["numUnitsInServing"]
+    ) - (supp * num_days_since_bought)
+    if inv < 0:
+        return 0
+    return inv
 
 
 def get_num_winter_days_starting(num_days: int, starting: dt.date) -> int:
@@ -72,38 +83,59 @@ def get_num_winter_days_starting(num_days: int, starting: dt.date) -> int:
 @app.command()
 def status():
     """check if there's enough inventory for the next fill-up; if not, what to order?"""
+    validate_matches()
+
     config = load_config()
+
     num_days_of_inventory_needed = config["FILL_EVERY_X_DAYS"]
     next_fill_date = config["LAST_FILL_DATE"] + dt.timedelta(
         num_days_of_inventory_needed
     )
     inventory = load_inventory()
+
     needs = []
+
+    num_days_of_inventory_needed_winter = get_num_winter_days_starting(
+        num_days_of_inventory_needed, next_fill_date
+    )
+
     for sup in config["supps"]:
         sup_inst = Supp(**sup)
         if sup_inst.winter_only:
-            num_days_of_inventory_needed = get_num_winter_days_starting(
-                num_days_of_inventory_needed, next_fill_date
-            )
-        qty_needed = sup_inst * num_days_of_inventory_needed
+            qty_needed = sup_inst * num_days_of_inventory_needed_winter
+        else:
+            qty_needed = sup_inst * num_days_of_inventory_needed
+
         try:
             inv = inventory[sup_inst.name]
         except KeyError:
             qty_of_inventory = 0
         else:
-            qty_of_inventory = get_qty_inventory(sup_inst, inv)
-        net_need = qty_needed - qty_of_inventory
+            qty_of_inventory = get_qty_inventory(sup_inst, inv, next_fill_date)
+
+        net_need = int(qty_needed - qty_of_inventory)
         if net_need > 0:
-            needs.append((sup_inst.name, net_need, sup_inst.units))
+            if qty_of_inventory == 0:
+                num_bottles_needed = 1
+            else:
+                if sup_inst.name == "magnesium slow release":
+                    print(f"{net_need=}")
+                    print(f"{inv['numUnitsInServing']=}")
+                    print(f"{inv['quantity']=}")
+                num_units_needed = net_need / inv["numUnitsInServing"]  # type: ignore
+                num_bottles_needed = int(math.ceil(num_units_needed / inv["quantity"]))  # type: ignore
+            needs.append((sup_inst.name, int(num_units_needed), num_bottles_needed))
     if needs:
         print(f"The next fill-up is on {next_fill_date}, and you won't have enough of:")
-        for name, quant, units in needs:
-            print(f"{name} (need {quant} {units})")
+        for name, units_needed, num_bottles in needs:
+            bottle = "bottle" if num_bottles == 1 else "bottles"
+            print(f"{name} (need {units_needed} units, which is {num_bottles} {bottle})")
 
 
 @app.command()
 def fill():
     """reset 'next fill' clock"""
+    validate_matches()
     config = load_config()
     today = dt.date.today()
     config["LAST_FILL_DATE"] = today.strftime("%Y-%m-%d")
@@ -123,8 +155,9 @@ def add(
     serving_quantity: Annotated[int, typer.Option(prompt=True)],
     serving_unit: Annotated[str, typer.Option(prompt=True)] = "mg",
     quantity_unit: Annotated[str, typer.Option(prompt=True)] = "caps",
-    date: Annotated[dt.datetime, typer.Option(help="(today)", prompt=True)]
-    | None = None,
+    date: (
+        Annotated[dt.datetime, typer.Option(help="(today)", prompt=True)] | None
+    ) = None,
     number_of_bottles: Annotated[int, typer.Option(prompt=True)] = 1,
 ) -> None:
     """add to inventory"""
@@ -153,3 +186,21 @@ def save_ordered_supps(ordered_supps: list[dict]) -> None:
 
 def save_config(config: dict) -> None:
     SUPP_CONSUMPTION_FP.write_text(toml.dumps(config))
+
+
+def validate_matches() -> None:
+    missing = []
+
+    ordered_supp_names_lower = [i["name"].lower() for i in load_ordered_supps()]
+    for i in CONFIG["supps"]:
+        if (
+            not any(
+                i["name"].lower() in ordered_supp_name
+                for ordered_supp_name in ordered_supp_names_lower
+            )
+            and i["name"].lower() not in ALIASES_REV
+        ):
+            missing.append(i["name"])
+
+    if missing:
+        raise Missing(", ".join(missing))

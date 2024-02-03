@@ -3,6 +3,7 @@ TODO:
     special case: Liquid D-3 & MK-7 -- has d-3 and k-mk7
     special case: K Complex has K1, MK-4 and MK-7 in it
 """
+
 from dataclasses import dataclass
 import json
 import pathlib as pl
@@ -43,28 +44,6 @@ def load_inventory():
     }
 
 
-class Missing(Exception):
-    pass
-
-
-def validate_matches() -> None:
-    missing = []
-
-    ordered_supp_names_lower = [i["name"].lower() for i in load_ordered_supps()]
-    for i in CONFIG["supps"]:
-        if (
-            not any(
-                i["name"].lower() in ordered_supp_name
-                for ordered_supp_name in ordered_supp_names_lower
-            )
-            and i["name"].lower() not in ALIASES_REV
-        ):
-            missing.append(i["name"])
-
-    if missing:
-        raise Missing(", ".join(missing))
-
-
 @dataclass
 class Supp:
     name: str
@@ -86,13 +65,3 @@ class Supp:
             * 7
             / self.days_per_week
         )
-
-
-def main():
-    missing_names = validate_matches()
-    if missing_names:
-        print(missing_names)
-
-
-if __name__ == "__main__":
-    main()
