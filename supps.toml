@@ -1,0 +1,207 @@
+[[ supps ]]
+name = "ashwagandha"
+bedtime = 600
+
+[[ supps ]]
+name = "aspirin"
+lunch = 86
+per_week = 3
+
+[[ supps ]]
+name = "astaxanthin"
+morning = 12
+
+[[ supps ]]
+name = "b complex"
+morning = 0.5
+per_week = 2
+units = "caps"
+
+[[ supps ]]
+name = "b-12"
+lunch = 1000
+units = "mcg"
+per_week = 1
+
+[[ supps ]]
+name = "boron"
+morning = 2
+
+[[ supps ]]
+name = "broccomax"
+morning = 17.5
+dinner = 17.5
+
+[[ supps ]]
+name = "vitamin c"
+morning = 500
+
+[[ supps ]]
+name = "creatine"
+lunch = 2.5
+units = "g"
+per_week = 4
+
+[[ supps ]]
+name = "Ca-AKG"
+morning = 1
+dinner = 1
+units = "g"
+
+[[ supps ]]
+name = "coq10"
+morning = 100
+lunch = 100
+dinner = 100
+
+[[ supps ]]
+name = "d-3"
+morning = 5000
+units = "iu"
+winter_only = true
+
+[[ supps ]]
+name = "DHEA"
+morning = 25
+
+[[ supps ]]
+name = "vitamin e"
+morning = 200
+per_week = 3
+units = "iu"
+
+[[ supps ]]
+name = "EPA/DHA"
+morning = 2
+dinner = 1
+units = "caps"
+
+[[ supps ]]
+name = "garlic"
+morning = 1.2
+dinner = 1.2
+units = "g"
+
+[[ supps ]]
+name = "genistein"
+morning = 1
+units = "caps"
+
+[[ supps ]]
+name = "ginger root"
+morning = 2.2
+dinner = 2.2
+units = "g"
+
+[[ supps ]]
+name = "glucosamine sulfate"
+morning = 1500
+dinner = 1500
+
+[[ supps ]]
+name = "glycine"
+morning = 2
+units = "g"
+
+[[ supps ]]
+name = "hyaluronic acid"
+morning = 300
+
+[[ supps ]]
+name = "iodine"
+morning = 125
+units = "mcg"
+
+[[ supps ]]
+name = "iron"
+morning = 10
+
+[[ supps ]]
+name = "k1"
+morning = 1.5
+
+[[ supps ]]
+name = "k2-mk7"
+morning = 600
+units = "mcg"
+
+[[ supps ]]
+name = "k2-mk4"
+morning = 5
+
+[[ supps ]]
+name = "l-lysine"
+morning = 1
+dinner = 1
+units = "g"
+
+[[ supps ]]
+name = "l-tyrosine"
+dinner = 500
+
+[[ supps ]]
+name = "lithium orotate"
+morning = 1
+
+[[ supps ]]
+name = "lycopene"
+morning = 10
+
+[[ supps ]]
+name = "magnesium slow release"
+morning = 1
+units = "caps"
+
+[[ supps ]]
+name = "magnesium taurate"
+bedtime = 125
+
+[[ supps ]]
+name = "magnesium glycinate"
+bedtime = 350
+
+[[ supps ]]
+name = "magtein"
+bedtime = 2
+units = "g"
+
+[[ supps ]]
+name = "methyl folate"
+morning = 1
+units = "caps"
+
+[[ supps ]]
+name = "NAC"
+morning = 1800
+dinner = 1800
+
+[[ supps ]]
+name = "pqq"
+morning = 1
+units = "caps"
+
+[[ supps ]]
+name = "probiotic"
+morning = 1
+units = "caps"
+
+[[ supps ]]
+name = "taurine"
+morning = 2
+dinner = 1
+units = "g"
+
+[[ supps ]]
+name = "turmeric"
+morning = 1
+dinner = 1
+units = "g"
+
+[[ supps ]]
+name = "zeaxanthin"
+morning = 20
+per_week = 3
+
+[[ supps ]]
+name = "zinc"
+morning = 15

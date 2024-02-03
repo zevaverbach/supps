@@ -1,7 +1,6 @@
 const getOrderElements = () => Array.from(document.querySelectorAll(".order-details-box"))
 
 function getDateOfOrder(orderEl) {
-    console.log(orderEl);
     return Date.parse(
         orderEl
         .children[0]
@@ -31,6 +30,38 @@ SERVINGS_LOOKUP = {
         numUnitsInServing: .126, 
         servingUnit: "ml",
     },
+    "Magnesium Taurate": {
+        numUnitsInServing: 1, 
+        servingUnit: "cap",
+    },
+    "High Absorption Magnesium Glycinate 350": {
+        numUnitsInServing: 350, 
+        servingUnit: "mg",
+    },
+    "Iron Bisglycinate": {
+        numUnitsInServing: 1, 
+        servingUnit: "cap",
+    },
+    "Extend-Release Magnesium": {
+        numUnitsInServing: 1, 
+        servingUnit: "cap",
+    },
+    "Lutein & Zeaxanthin": {
+        numUnitsInServing: 1, 
+        servingUnit: "cap",
+    },
+    "Aged Garlic Extract": {
+        numUnitsInServing: 600, 
+        servingUnit: "mg",
+    },
+    "Organic Turmeric Curcumin": {
+        numUnitsInServing: 2250, 
+        servingUnit: "mg",
+    },
+    "Lithium Orotate Drops": {
+        numUnitsInServing: .25, 
+        servingUnit: "ml",
+    },
 };
 
 const getNumBottles = orderEl => parseInt(orderEl
@@ -55,9 +86,16 @@ function makeSuppObj(sup) {
     const ord = sup.parentElement.parentElement.parentElement;
     const parts = sup.children[1].children[0].innerText.split(", ");
 
-    // TODO: if '(' in quantityText, use that as the serving
-    //       in order to get the number of servings on hand
-    const quantityText = parts.slice(-1)[0];
+    let quantityText = parts.slice(-1)[0];
+    let origQtyTxt = quantityText;
+    if (quantityText.includes("(")) {
+        quantityText = quantityText.match(/\((\d+)/).slice(-1)[0]
+    }
+    let quantityUnits = "caps";
+    if (!["caps", "capsules", "tablets", "softgels", "vegcaps", "lozenges"].some(str => origQtyTxt.toLowerCase().includes(str))) {
+        quantityUnits = origQtyTxt.match(/\(\d+ (.*)\)/).slice(-1)[0];
+        console.log(quantityUnits);
+    }
     const servingText = parts.slice(-2, -1)[0];
     const name = parts[1];
     if (SKIP_THESE.includes(name)) {
@@ -76,7 +114,6 @@ function makeSuppObj(sup) {
                 toString: function(){return this.name + ": " + this.message;} 
             };
         } else {
-            console.log(servingObj);
             ({ numUnitsInServing, servingUnit } = servingObj);
         }
     } else {
@@ -86,14 +123,28 @@ function makeSuppObj(sup) {
     if (typeof numUnitsInServing !== "number") {
         numUnitsInServing = numUnitsInServing.replace(",", "");
     }
-    numUnitsInServing = parseInt(numUnitsInServing);
+    let numUnitsInServingFinal = parseInt(numUnitsInServing);
+    if (!numUnitsInServingFinal || numUnitsInServingFinal == 0 || name.includes(servingUnit)) {
+        const servingObj = SERVINGS_LOOKUP[name];
+        if (!servingObj) {
+            throw {
+                name: "servingError",
+                level: "serious",
+                message: `couldn't get serving info for ${name} '(${parts})'`,
+                htmlMessage: this.message,
+                toString: function(){return this.name + ": " + this.message;} 
+            };
+        }
+        ({ numUnitsInServing: numUnitsInServingFinal, servingUnit } = servingObj);
+    }
 
     return {
         orderDate: new Date(getDateOfOrder(ord)),
         name,
         quantity: parseInt(quantityText.split(" ")[0]),
+        quantityUnits,
         servingUnit,
-        numUnitsInServing,
+        numUnitsInServing: numUnitsInServingFinal,
         numBottles: getNumBottles(ord),
     }
 }
@@ -101,10 +152,15 @@ function makeSuppObj(sup) {
 
 function main(orderCutoffHuman) {
     const orderCutoff = Date.parse(orderCutoffHuman);
-    const orderEls = getOrderElements().filter(el => getDateOfOrder(el) > orderCutoff)
+    const orderEls = getOrderElements()
+        .filter(el => !el.innerText.includes("Cancelled"))
+        .filter(el => getDateOfOrder(el) > orderCutoff)
     let suppEls = [];
     for (const orderEl of orderEls) {
         suppEls = suppEls.concat(getSupps(orderEl));
     }
+    // TODO: write this to a file or copy to clipboard in CSV
     return suppEls.map(suppEl => makeSuppObj(suppEl)).filter(res => res != null);
 }
+
+console.log(JSON.stringify(main("January 04, 2024")));
