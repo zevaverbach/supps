@@ -18,10 +18,9 @@ def load_config():
     return tomllib.loads(SUPP_CONSUMPTION_FP.read_text())
 
 
-
-
 def load_ordered_supps() -> list[dict]:
     return json.loads(ORDERED_SUPPS_FP.read_text())
+
 
 CONFIG = load_config()
 ALIASES = CONFIG["product_aliases"]
@@ -30,13 +29,18 @@ ordered_supps = load_ordered_supps()
 
 for i in CONFIG["supps"]:
     for ordered_supp in ordered_supps:
-        if i["name"].lower() in ordered_supp['name'].lower():
-            ALIASES[ordered_supp['name']] = i["name"]
+        if i["name"].lower() in ordered_supp["name"].lower():
+            ALIASES[ordered_supp["name"]] = i["name"]
 
 ALIASES_REV = {v: k for k, v in ALIASES.items()}
 
+
 def load_inventory():
-    return { ALIASES[s['name']]: s for s in load_ordered_supps() if s['name'] not in CONFIG['discontinued'] }
+    return {
+        ALIASES[s["name"]]: s
+        for s in load_ordered_supps()
+        if s["name"] not in CONFIG["discontinued"]
+    }
 
 
 class Missing(Exception):
@@ -77,7 +81,11 @@ class Supp:
 
     @property
     def quantity_per_day(self) -> float:
-        return sum([self.morning, self.lunch, self.dinner, self.bedtime]) * 7 / self.days_per_week
+        return (
+            sum([self.morning, self.lunch, self.dinner, self.bedtime])
+            * 7
+            / self.days_per_week
+        )
 
 
 def main():
