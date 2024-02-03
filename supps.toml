@@ -1,207 +1,217 @@
-[[ supps ]]
+discontinued = ['NAD+ Cell Regenerator', 'Fisetin with Novusetin', 'Fisetin Novusetin', 'Collagen']
+FILL_EVERY_X_DAYS = 30
+LAST_FILL_DATE = 2024-01-16
+
+[[supps]]
 name = "ashwagandha"
 bedtime = 600
 
-[[ supps ]]
+[[supps]]
 name = "aspirin"
 lunch = 86
-per_week = 3
+days_per_week = 3
 
-[[ supps ]]
+[[supps]]
 name = "astaxanthin"
 morning = 12
 
-[[ supps ]]
+[[supps]]
 name = "b complex"
 morning = 0.5
-per_week = 2
+days_per_week = 2
 units = "caps"
 
-[[ supps ]]
+[[supps]]
 name = "b-12"
 lunch = 1000
 units = "mcg"
-per_week = 1
+days_per_week = 1
 
-[[ supps ]]
+[[supps]]
 name = "boron"
 morning = 2
 
-[[ supps ]]
+[[supps]]
 name = "broccomax"
-morning = 17.5
-dinner = 17.5
+morning = 1
+dinner = 1
+units = "caps"
 
-[[ supps ]]
+[[supps]]
 name = "vitamin c"
 morning = 500
 
-[[ supps ]]
+[[supps]]
 name = "creatine"
 lunch = 2.5
+days_per_week = 4
 units = "g"
-per_week = 4
 
-[[ supps ]]
+[[supps]]
 name = "Ca-AKG"
-morning = 1
-dinner = 1
-units = "g"
+morning = 1000
+dinner = 1000
 
-[[ supps ]]
+[[supps]]
 name = "coq10"
 morning = 100
 lunch = 100
 dinner = 100
 
-[[ supps ]]
+[[supps]]
 name = "d-3"
 morning = 5000
 units = "iu"
 winter_only = true
 
-[[ supps ]]
+[[supps]]
 name = "DHEA"
 morning = 25
 
-[[ supps ]]
+[[supps]]
 name = "vitamin e"
-morning = 200
-per_week = 3
-units = "iu"
+morning = 67
+days_per_week = 3
 
-[[ supps ]]
+[[supps]]
 name = "EPA/DHA"
 morning = 2
 dinner = 1
 units = "caps"
 
-[[ supps ]]
+[[supps]]
 name = "garlic"
-morning = 1.2
-dinner = 1.2
-units = "g"
+morning = 1200
+dinner = 1200
 
-[[ supps ]]
+[[supps]]
 name = "genistein"
-morning = 1
-units = "caps"
+morning = 125
 
-[[ supps ]]
+[[supps]]
 name = "ginger root"
-morning = 2.2
-dinner = 2.2
-units = "g"
+morning = 2200
+dinner = 2200
 
-[[ supps ]]
+[[supps]]
 name = "glucosamine sulfate"
 morning = 1500
 dinner = 1500
 
-[[ supps ]]
+[[supps]]
 name = "glycine"
-morning = 2
-units = "g"
+morning = 2000
 
-[[ supps ]]
+[[supps]]
 name = "hyaluronic acid"
 morning = 300
 
-[[ supps ]]
+[[supps]]
 name = "iodine"
 morning = 125
 units = "mcg"
 
-[[ supps ]]
+[[supps]]
 name = "iron"
 morning = 10
 
-[[ supps ]]
+[[supps]]
 name = "k1"
-morning = 1.5
+morning = 1500
+units="mcg"
 
-[[ supps ]]
+[[supps]]
 name = "k2-mk7"
 morning = 600
 units = "mcg"
 
-[[ supps ]]
+[[supps]]
 name = "k2-mk4"
 morning = 5
 
-[[ supps ]]
+[[supps]]
 name = "l-lysine"
-morning = 1
-dinner = 1
-units = "g"
+morning = 1000
+dinner = 1000
 
-[[ supps ]]
+[[supps]]
 name = "l-tyrosine"
 dinner = 500
 
-[[ supps ]]
+[[supps]]
 name = "lithium orotate"
 morning = 1
 
-[[ supps ]]
+[[supps]]
 name = "lycopene"
 morning = 10
 
-[[ supps ]]
+[[supps]]
 name = "magnesium slow release"
 morning = 1
 units = "caps"
 
-[[ supps ]]
+[[supps]]
 name = "magnesium taurate"
 bedtime = 125
 
-[[ supps ]]
+[[supps]]
 name = "magnesium glycinate"
 bedtime = 350
 
-[[ supps ]]
+[[supps]]
 name = "magtein"
-bedtime = 2
-units = "g"
+bedtime = 2000
 
-[[ supps ]]
+[[supps]]
 name = "methyl folate"
-morning = 1
-units = "caps"
+morning = 1700
+units = "mcg"
 
-[[ supps ]]
+[[supps]]
 name = "NAC"
 morning = 1800
 dinner = 1800
 
-[[ supps ]]
+[[supps]]
 name = "pqq"
-morning = 1
-units = "caps"
+morning = 20
 
-[[ supps ]]
+[[supps]]
 name = "probiotic"
 morning = 1
 units = "caps"
 
-[[ supps ]]
+[[supps]]
 name = "taurine"
-morning = 2
-dinner = 1
-units = "g"
+morning = 2000
+dinner = 1000
 
-[[ supps ]]
+[[supps]]
 name = "turmeric"
-morning = 1
-dinner = 1
-units = "g"
+morning = 1000
+dinner = 1000
 
-[[ supps ]]
+[[supps]]
 name = "zeaxanthin"
 morning = 20
-per_week = 3
+days_per_week = 3
 
-[[ supps ]]
+[[supps]]
 name = "zinc"
 morning = 15
+
+[product_aliases]
+"Naturally Sourced Vitamin E" = "vitamin e"
+"Natural Vitamin K2 MK-7 with MenaQ7" = "k2-mk7"
+"Liquid D-3 & MK-7" = "d-3"
+"Calcium AKG Longevity" = "ca-akg"
+"MK-7 Vitamin K-2" = "k2-mk7"
+"Optimized Folate" = "methyl folate"
+"Extend-Release Magnesium" = "magnesium slow release"
+Crucera-SGS = "broccomax"
+B-50 = "b complex"
+"Vitamin K2, MK-4 (Menatetrenone)" = "k2-mk4"
+"Super K" = "k1"
+"Ultimate Omega, Lemon" = "epa/dha"
+

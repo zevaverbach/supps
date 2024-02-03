@@ -13,8 +13,8 @@
     "name": "Super K",
     "quantity": 90,
     "quantityUnits": "caps",
-    "servingUnit": "caps",
-    "numUnitsInServing": 1,
+    "servingUnit": "mcg",
+    "numUnitsInServing": 1500,
     "numBottles": 1
   },
   {
@@ -58,8 +58,8 @@
     "name": "Glycine",
     "quantity": 250,
     "quantityUnits": "caps",
-    "servingUnit": "caps",
-    "numUnitsInServing": 1,
+    "servingUnit": "mg",
+    "numUnitsInServing": 350,
     "numBottles": 1
   },
   {
@@ -83,11 +83,11 @@
   {
     "orderDate": "2024-01-23T23:00:00.000Z",
     "name": "Liquid D-3 & MK-7",
-    "quantity": 30,
-    "quantityUnits": "ml",
-    "servingUnit": "ml",
-    "numUnitsInServing": 0.368,
-    "numBottles": 4
+    "quantity": 81.5,
+    "quantityUnits": "iu",
+    "servingUnit": "iu",
+    "numUnitsInServing": 5000,
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-23T23:00:00.000Z",
@@ -112,7 +112,7 @@
     "name": "Magnesium Taurate",
     "quantity": 180,
     "quantityUnits": "caps",
-    "servingUnit": "cap",
+    "servingUnit": "caps",
     "numUnitsInServing": 1,
     "numBottles": 1
   },
@@ -184,8 +184,8 @@
     "name": "Probiotic-10",
     "quantity": 50,
     "quantityUnits": "caps",
-    "servingUnit": "Billion",
-    "numUnitsInServing": 25,
+    "servingUnit": "caps",
+    "numUnitsInServing": 1,
     "numBottles": 1
   },
   {
@@ -193,8 +193,8 @@
     "name": "Iron Bisglycinate",
     "quantity": 60,
     "quantityUnits": "caps",
-    "servingUnit": "cap",
-    "numUnitsInServing": 1,
+    "servingUnit": "mg",
+    "numUnitsInServing": 25,
     "numBottles": 1
   },
   {
@@ -211,7 +211,7 @@
     "name": "Extend-Release Magnesium",
     "quantity": 60,
     "quantityUnits": "caps",
-    "servingUnit": "cap",
+    "servingUnit": "caps",
     "numUnitsInServing": 1,
     "numBottles": 1
   },
@@ -231,7 +231,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 125,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -240,16 +240,16 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 600,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
     "name": "Crucera-SGS",
     "quantity": 60,
     "quantityUnits": "caps",
-    "servingUnit": "cap",
+    "servingUnit": "caps",
     "numUnitsInServing": 1,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -258,7 +258,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 1000,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -267,7 +267,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 300,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -276,7 +276,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 12,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -285,7 +285,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mcg",
     "numUnitsInServing": 1000,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -294,7 +294,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 3,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -303,7 +303,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 1000,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -312,16 +312,16 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 2250,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
     "name": "Lutein & Zeaxanthin",
     "quantity": 60,
     "quantityUnits": "caps",
-    "servingUnit": "cap",
-    "numUnitsInServing": 1,
-    "numBottles": 2
+    "servingUnit": "mg",
+    "numUnitsInServing": 20,
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -330,7 +330,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 15,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -339,7 +339,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 300,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -348,7 +348,7 @@
     "quantityUnits": "g",
     "servingUnit": "g",
     "numUnitsInServing": 5,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -357,7 +357,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 10,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -366,7 +366,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 500,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -375,7 +375,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mcg",
     "numUnitsInServing": 100,
-    "numBottles": 2
+    "numBottles": 4
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -384,7 +384,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 1000,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -393,25 +393,25 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 500,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
     "name": "Lithium Orotate Drops",
     "quantity": 59,
     "quantityUnits": "ml",
-    "servingUnit": "ml",
-    "numUnitsInServing": 0.25,
-    "numBottles": 2
+    "servingUnit": "mg",
+    "numUnitsInServing": 1,
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
     "name": "Liquid Iodine Plus",
     "quantity": 59,
     "quantityUnits": "ml",
-    "servingUnit": "ml",
-    "numUnitsInServing": 0.126,
-    "numBottles": 2
+    "servingUnit": "mcg",
+    "numUnitsInServing": 125,
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -420,7 +420,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 100,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -429,7 +429,7 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 81,
-    "numBottles": 2
+    "numBottles": 1
   },
   {
     "orderDate": "2024-01-04T23:00:00.000Z",
@@ -438,6 +438,6 @@
     "quantityUnits": "caps",
     "servingUnit": "mg",
     "numUnitsInServing": 134,
-    "numBottles": 2
+    "numBottles": 1
   }
 ]
