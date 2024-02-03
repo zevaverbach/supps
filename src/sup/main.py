@@ -10,7 +10,7 @@ import tomllib
 import typing as t
 
 
-ORDERED_SUPPS_FP = pl.Path("supps.json")
+ORDERED_SUPPS_FP = pl.Path("inventory.json")
 SUPP_CONSUMPTION_FP = pl.Path("supps.toml")
 
 
