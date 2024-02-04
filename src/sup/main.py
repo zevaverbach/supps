@@ -62,6 +62,5 @@ class Supp:
     def quantity_per_day(self) -> float:
         return (
             sum([self.morning, self.lunch, self.dinner, self.bedtime])
-            * 7
-            / self.days_per_week
+            * self.days_per_week / 7
         )

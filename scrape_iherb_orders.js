@@ -1,4 +1,4 @@
-const getOrderElements = () => Array.from(document.querySelectorAll(".order-details-box"))
+let getOrderElements = () => Array.from(document.querySelectorAll(".order-details-box"))
 
 function getDateOfOrder(orderEl) {
     return Date.parse(
@@ -11,7 +11,7 @@ function getDateOfOrder(orderEl) {
     );
 }
 
-const getSupps = orderEl => Array.from(orderEl.children[1].children[0].children);
+let getSupps = orderEl => Array.from(orderEl.children[1].children[0].children);
 
 SERVINGS_LOOKUP = {
     "Liquid D-3 & MK-7": {
@@ -20,7 +20,7 @@ SERVINGS_LOOKUP = {
     },
     "Crucera-SGS": {
         numUnitsInServing: 1, 
-        servingUnit: "cap",
+        servingUnit: "caps",
     },
     "Creatine": {
         numUnitsInServing: 5, 
@@ -32,7 +32,7 @@ SERVINGS_LOOKUP = {
     },
     "Magnesium Taurate": {
         numUnitsInServing: 1, 
-        servingUnit: "cap",
+        servingUnit: "caps",
     },
     "High Absorption Magnesium Glycinate 350": {
         numUnitsInServing: 350, 
@@ -40,15 +40,15 @@ SERVINGS_LOOKUP = {
     },
     "Iron Bisglycinate": {
         numUnitsInServing: 1, 
-        servingUnit: "cap",
+        servingUnit: "caps",
     },
     "Extend-Release Magnesium": {
         numUnitsInServing: 1, 
-        servingUnit: "cap",
+        servingUnit: "caps",
     },
     "Lutein & Zeaxanthin": {
         numUnitsInServing: 1, 
-        servingUnit: "cap",
+        servingUnit: "caps",
     },
     "Aged Garlic Extract": {
         numUnitsInServing: 600, 
@@ -62,9 +62,17 @@ SERVINGS_LOOKUP = {
         numUnitsInServing: .25, 
         servingUnit: "ml",
     },
+    "Glycine": {
+        numUnitsInServing: 1000, 
+        servingUnit: "mg",
+    },
+    "Super K": {
+        numUnitsInServing: 1500, 
+        servingUnit: "mcg",
+    },
 };
 
-const getNumBottles = orderEl => parseInt(orderEl
+let getNumBottles = orderEl => parseInt(orderEl
     .children[1]
     .children[0]
     .children[0]
@@ -73,7 +81,7 @@ const getNumBottles = orderEl => parseInt(orderEl
     .innerText
     .split("Qty: ").slice(-1)[0]);
 
-const SKIP_THESE = [
+let SKIP_THESE = [
     "Organic Brown Mustard",
     "Sunflower Lecithin",
     "Premium Whole Flaxseed",
@@ -150,11 +158,16 @@ function makeSuppObj(sup) {
 }
 
 
-function main(orderCutoffHuman) {
-    const orderCutoff = Date.parse(orderCutoffHuman);
-    const orderEls = getOrderElements()
-        .filter(el => !el.innerText.includes("Cancelled"))
-        .filter(el => getDateOfOrder(el) > orderCutoff)
+function main(orderCutoffHuman, getFirst) {
+    let orderEls;
+    if (!getFirst) {
+        const orderCutoff = Date.parse(orderCutoffHuman);
+        orderEls = getOrderElements()
+            .filter(el => !el.innerText.includes("Cancelled"))
+            .filter(el => getDateOfOrder(el) > orderCutoff)
+    } else {
+        orderEls = [getOrderElements()[0]];
+    }
     let suppEls = [];
     for (const orderEl of orderEls) {
         suppEls = suppEls.concat(getSupps(orderEl));
@@ -163,4 +176,4 @@ function main(orderCutoffHuman) {
     return suppEls.map(suppEl => makeSuppObj(suppEl)).filter(res => res != null);
 }
 
-console.log(JSON.stringify(main("January 04, 2024")));
+console.log(JSON.stringify(main(null, true)));

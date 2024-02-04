@@ -65,7 +65,7 @@ units = "iu"
 winter_only = true
 
 [[supps]]
-name = "DHEA"
+name = "dhea"
 morning = 25
 
 [[supps]]
@@ -75,9 +75,8 @@ days_per_week = 3
 
 [[supps]]
 name = "EPA/DHA"
-morning = 2
-dinner = 1
-units = "caps"
+morning = 1280
+dinner = 640
 
 [[supps]]
 name = "garlic"
@@ -108,8 +107,8 @@ morning = 300
 
 [[supps]]
 name = "iodine"
-morning = 125
-units = "mcg"
+morning = 0.126
+units = "ml"
 
 [[supps]]
 name = "iron"
@@ -122,7 +121,7 @@ units="mcg"
 
 [[supps]]
 name = "k2-mk7"
-morning = 600
+morning = 300 # it's actually 600 but I get half of it from the d-3 + mk7 drops + the Super K
 units = "mcg"
 
 [[supps]]
@@ -140,7 +139,8 @@ dinner = 500
 
 [[supps]]
 name = "lithium orotate"
-morning = 1
+morning = 1000
+units = "mcg"
 
 [[supps]]
 name = "lycopene"
@@ -169,7 +169,7 @@ morning = 1700
 units = "mcg"
 
 [[supps]]
-name = "NAC"
+name = "nac"
 morning = 1800
 dinner = 1800
 
@@ -214,4 +214,5 @@ B-50 = "b complex"
 "Vitamin K2, MK-4 (Menatetrenone)" = "k2-mk4"
 "Super K" = "k1"
 "Ultimate Omega, Lemon" = "epa/dha"
-
+"Ultimate Omega" = "epa/dha"
+"Lithium" = "lithium orotate"

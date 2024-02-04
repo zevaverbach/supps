@@ -82,7 +82,12 @@ def get_num_winter_days_starting(num_days: int, starting: dt.date) -> int:
 
 @app.command()
 def status():
-    """check if there's enough inventory for the next fill-up; if not, what to order?"""
+    """
+    check if there's enough inventory for the next fill-up; if not, what to order?
+
+    TODO: this doesn't seem to sense pending orders which have been added to inventory.json
+          maybe because the delivery date is in the present/future?
+    """
     validate_matches()
 
     config = load_config()
@@ -107,29 +112,32 @@ def status():
             qty_needed = sup_inst * num_days_of_inventory_needed
 
         try:
-            inv = inventory[sup_inst.name]
+            inv = inventory[sup_inst.name.lower()]
         except KeyError:
+            print(f"no hit for key '{sup_inst.name}'")
             qty_of_inventory = 0
-        else:
-            qty_of_inventory = get_qty_inventory(sup_inst, inv, next_fill_date)
+            needs.append((sup_inst.name, 0, float('inf')))
+            continue
+
+        qty_of_inventory = get_qty_inventory(sup_inst, inv, next_fill_date)
+        print(sup_inst.name, int(qty_of_inventory / inv["numUnitsInServing"]))
 
         net_need = int(qty_needed - qty_of_inventory)
         if net_need > 0:
-            if qty_of_inventory == 0:
-                num_bottles_needed = 1
-            else:
-                if sup_inst.name == "magnesium slow release":
-                    print(f"{net_need=}")
-                    print(f"{inv['numUnitsInServing']=}")
-                    print(f"{inv['quantity']=}")
-                num_units_needed = net_need / inv["numUnitsInServing"]  # type: ignore
-                num_bottles_needed = int(math.ceil(num_units_needed / inv["quantity"]))  # type: ignore
+            num_units_needed = net_need / inv["numUnitsInServing"]  # type: ignore
+            num_bottles_needed = int(math.ceil(num_units_needed / inv["quantity"]))  # type: ignore
             needs.append((sup_inst.name, int(num_units_needed), num_bottles_needed))
+
     if needs:
+        print()
         print(f"The next fill-up is on {next_fill_date}, and you won't have enough of:")
+        print()
         for name, units_needed, num_bottles in needs:
             bottle = "bottle" if num_bottles == 1 else "bottles"
-            print(f"{name} (need {units_needed} units, which is {num_bottles} {bottle})")
+            print(
+                f"{name} (need {units_needed} units, which is {num_bottles} {bottle})"
+            )
+        print()
 
 
 @app.command()
