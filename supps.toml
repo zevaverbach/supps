@@ -1,7 +1,6 @@
-discontinued = ['NAD+ Cell Regenerator', 'Fisetin with Novusetin', 'Fisetin Novusetin', 'Collagen']
+discontinued = [ "NAD+ Cell Regenerator", "Fisetin with Novusetin", "Fisetin Novusetin", "Collagen",]
 FILL_EVERY_X_DAYS = 30
-LAST_FILL_DATE = 2024-01-16
-
+LAST_FILL_DATE = "2024-01-16"
 [[supps]]
 name = "ashwagandha"
 bedtime = 600
@@ -117,11 +116,11 @@ morning = 10
 [[supps]]
 name = "k1"
 morning = 1500
-units="mcg"
+units = "mcg"
 
 [[supps]]
 name = "k2-mk7"
-morning = 300 # it's actually 600 but I get half of it from the d-3 + mk7 drops + the Super K
+morning = 300
 units = "mcg"
 
 [[supps]]
@@ -215,4 +214,4 @@ B-50 = "b complex"
 "Super K" = "k1"
 "Ultimate Omega, Lemon" = "epa/dha"
 "Ultimate Omega" = "epa/dha"
-"Lithium" = "lithium orotate"
+Lithium = "lithium orotate"

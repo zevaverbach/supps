@@ -4,11 +4,11 @@ TODO:
     special case: K Complex has K1, MK-4 and MK-7 in it
 """
 
-from dataclasses import dataclass
 import json
 import pathlib as pl
 import tomllib
-import typing as t
+
+from sup.models import Supp
 
 
 ORDERED_SUPPS_FP = pl.Path("inventory.json")
@@ -42,25 +42,3 @@ def load_inventory():
         for s in load_ordered_supps()
         if s["name"] not in CONFIG["discontinued"]
     }
-
-
-@dataclass
-class Supp:
-    name: str
-    morning: int | float = 0
-    lunch: int | float = 0
-    dinner: int | float = 0
-    bedtime: int | float = 0
-    days_per_week: int = 7
-    units: t.Literal["caps", "mg", "g", "ml", "mcg", "iu"] = "mg"
-    winter_only: bool = False
-
-    def __mul__(self, other: int) -> float:
-        return self.quantity_per_day * other
-
-    @property
-    def quantity_per_day(self) -> float:
-        return (
-            sum([self.morning, self.lunch, self.dinner, self.bedtime])
-            * self.days_per_week / 7
-        )

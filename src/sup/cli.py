@@ -93,7 +93,7 @@ def status():
     config = load_config()
 
     num_days_of_inventory_needed = config["FILL_EVERY_X_DAYS"]
-    next_fill_date = config["LAST_FILL_DATE"] + dt.timedelta(
+    next_fill_date = dt.datetime.strptime(config["LAST_FILL_DATE"], "%Y-%m-%d").date() + dt.timedelta(
         num_days_of_inventory_needed
     )
     inventory = load_inventory()
@@ -120,7 +120,6 @@ def status():
             continue
 
         qty_of_inventory = get_qty_inventory(sup_inst, inv, next_fill_date)
-        print(sup_inst.name, int(qty_of_inventory / inv["numUnitsInServing"]))
 
         net_need = int(qty_needed - qty_of_inventory)
         if net_need > 0:
@@ -146,9 +145,7 @@ def fill():
     validate_matches()
     config = load_config()
     today = dt.date.today()
-    config["LAST_FILL_DATE"] = today.strftime("%Y-%m-%d")
-    # TODO: make sure this toml library doesn't add quotes to this entry, it
-    #       makes it so when reading it doesn't get parsed to a date
+    config["LAST_FILL_DATE"] = today.strftime('%Y-%m-%d')
     fill_every_x_days = config["FILL_EVERY_X_DAYS"]
     save_config(config)
     print(
