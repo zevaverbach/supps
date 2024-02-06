@@ -4,11 +4,10 @@ TODO:
     special case: K Complex has K1, MK-4 and MK-7 in it
 """
 
+import collections 
 import json
 import pathlib as pl
 import tomllib
-
-from sup.models import Supp
 
 
 ORDERED_SUPPS_FP = pl.Path("inventory.json")
@@ -37,8 +36,8 @@ ALIASES_REV = {v: k for k, v in ALIASES.items()}
 
 
 def load_inventory():
-    return {
-        ALIASES[s["name"]]: s
-        for s in load_ordered_supps()
-        if s["name"] not in CONFIG["discontinued"]
-    }
+    inventory = collections.defaultdict(list)
+    for s in load_ordered_supps():
+        if s["name"] not in CONFIG["discontinued"]:
+            inventory[ALIASES[s["name"]]].append(s)
+    return inventory

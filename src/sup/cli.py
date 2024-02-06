@@ -1,13 +1,3 @@
-"""
-{'orderDate': '2024-01-04T23:00:00.000Z',
-  'name': 'Naturally Sourced Vitamin E',
-  'quantity': 100,
-  'quantityUnits': 'caps',
-  'servingUnit': 'mg',
-  'numUnitsInServing': 134,
-  'numBottles': 2}]
-"""
-
 import datetime as dt
 import json
 import math
@@ -22,10 +12,11 @@ from sup.main import (
     load_config,
     SUPP_CONSUMPTION_FP,
     load_inventory,
-    Supp,
     CONFIG,
     ALIASES_REV,
 )
+from sup.models import Supp
+
 
 app = typer.Typer()
 
@@ -38,19 +29,37 @@ class Missing(Exception):
     pass
 
 
-def get_qty_inventory(supp: Supp, inventory: dict, next_fill_date: dt.date) -> int:
-    inventory_order_date = dt.datetime.strptime(
-        inventory["orderDate"][:10], "%Y-%m-%d"
-    ).date()
-    num_days_since_bought = (next_fill_date - inventory_order_date).days
-    if inventory["servingUnit"] != supp.units:
-        raise UnitMismatch(inventory, supp)
+def get_qty_inventory(supp: Supp, inventories: list[dict], next_fill_date: dt.date, last_fill_date: dt.date) -> int:
+    inv = 0
+    CHECKING = ("broccomax", "glycine", "ginger root")
+    for inventory in inventories:
+        inventory_order_date = dt.datetime.strptime(
+            inventory["orderDate"][:10], "%Y-%m-%d"
+        ).date()
+        if inventory_order_date > last_fill_date:
+            num_days_since_bought = 0
+        else:
+            num_days_since_bought = (next_fill_date - inventory_order_date).days
+        if supp.name in CHECKING:
+            print()
+            print(supp.name)
+            print(f"{inventory_order_date=}")
+            print(f"{num_days_since_bought=}")
+        if inventory["servingUnit"] != supp.units:
+            raise UnitMismatch(inventory, supp)
+        supply_units = inventory["quantity"] * inventory["numBottles"] * inventory["numUnitsInServing"]
+        if supp.name in CHECKING:
+            print(f"{supply_units=}")
 
-    inv = (
-        inventory["quantity"] * inventory["numBottles"] * inventory["numUnitsInServing"]
-    ) - (supp * num_days_since_bought)
-    if inv < 0:
-        return 0
+        inv += supply_units - (supp * num_days_since_bought)
+        if inv < 0 and (
+                last_fill_date > inventory_order_date
+                or (next_fill_date - last_fill_date).days > 9 * 30
+                ):
+            inv = 0
+        if supp.name in CHECKING:
+            print(f"{inv=} for {supp.name=}")
+            print()
     return inv
 
 
@@ -93,9 +102,14 @@ def status():
     config = load_config()
 
     num_days_of_inventory_needed = config["FILL_EVERY_X_DAYS"]
-    next_fill_date = dt.datetime.strptime(config["LAST_FILL_DATE"], "%Y-%m-%d").date() + dt.timedelta(
-        num_days_of_inventory_needed
-    )
+   
+    last_fill_date = dt.datetime.strptime(
+        config["LAST_FILL_DATE"], "%Y-%m-%d"
+    ).date()
+    next_fill_date = last_fill_date + dt.timedelta(num_days_of_inventory_needed)
+    print()
+    print(f"{next_fill_date=}")
+    print()
     inventory = load_inventory()
 
     needs = []
@@ -112,16 +126,17 @@ def status():
             qty_needed = sup_inst * num_days_of_inventory_needed
 
         try:
-            inv = inventory[sup_inst.name.lower()]
+            invs = inventory[sup_inst.name.lower()]
         except KeyError:
             print(f"no hit for key '{sup_inst.name}'")
             qty_of_inventory = 0
-            needs.append((sup_inst.name, 0, float('inf')))
+            needs.append((sup_inst.name, 0, float("inf")))
             continue
 
-        qty_of_inventory = get_qty_inventory(sup_inst, inv, next_fill_date)
+        qty_of_inventory = get_qty_inventory(sup_inst, invs, next_fill_date, last_fill_date)
 
         net_need = int(qty_needed - qty_of_inventory)
+        inv = invs[-1]
         if net_need > 0:
             num_units_needed = net_need / inv["numUnitsInServing"]  # type: ignore
             num_bottles_needed = int(math.ceil(num_units_needed / inv["quantity"]))  # type: ignore
@@ -141,11 +156,11 @@ def status():
 
 @app.command()
 def fill():
-    """reset 'next fill' clock"""
+    """reset 'next fill' clock to today"""
     validate_matches()
     config = load_config()
     today = dt.date.today()
-    config["LAST_FILL_DATE"] = today.strftime('%Y-%m-%d')
+    config["LAST_FILL_DATE"] = today.strftime("%Y-%m-%d")
     fill_every_x_days = config["FILL_EVERY_X_DAYS"]
     save_config(config)
     print(
@@ -187,6 +202,10 @@ def add(
 
 def save_ordered_supps(ordered_supps: list[dict]) -> None:
     ORDERED_SUPPS_FP.write_text(json.dumps(ordered_supps, indent=2))
+
+
+def _prettify_json():
+    ORDERED_SUPPS_FP.write_text(json.dumps(json.loads(ORDERED_SUPPS_FP.read_text()), indent=2))
 
 
 def save_config(config: dict) -> None:

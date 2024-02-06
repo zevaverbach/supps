@@ -1,4 +1,4 @@
-discontinued = [ "NAD+ Cell Regenerator", "Fisetin with Novusetin", "Fisetin Novusetin", "Collagen",]
+discontinued = [ "Magnesium Taurate +", "NAD+ Cell Regenerator", "Fisetin with Novusetin", "Fisetin Novusetin", "Collagen",]
 FILL_EVERY_X_DAYS = 30
 LAST_FILL_DATE = "2024-01-16"
 [[supps]]

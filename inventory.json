@@ -112,8 +112,8 @@
     "name": "Magnesium Taurate",
     "quantity": 180,
     "quantityUnits": "caps",
-    "servingUnit": "caps",
-    "numUnitsInServing": 1,
+    "servingUnit": "mg",
+    "numUnitsInServing": 125,
     "numBottles": 1
   },
   {
@@ -400,8 +400,8 @@
     "name": "Lithium Orotate Drops",
     "quantity": 59,
     "quantityUnits": "ml",
-    "servingUnit": "mg",
-    "numUnitsInServing": 1,
+    "servingUnit": "mcg",
+    "numUnitsInServing": 1000,
     "numBottles": 1
   },
   {
@@ -409,8 +409,8 @@
     "name": "Liquid Iodine Plus",
     "quantity": 59,
     "quantityUnits": "ml",
-    "servingUnit": "mcg",
-    "numUnitsInServing": 125,
+    "servingUnit": "ml",
+    "numUnitsInServing": 0.126,
     "numBottles": 1
   },
   {
@@ -449,5 +449,112 @@
     "orderDate": "2024-02-03",
     "numBottles": 1
   },
-  {"orderDate":"2014-02-04T23:00:00.000Z","name":"Ashwagandha","quantity":120,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":300,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Crucera-SGS","quantity":60,"quantityUnits":"caps","servingUnit":"caps","numUnitsInServing":1,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"High Absorption CoQ10 with BioPerine","quantity":120,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":100,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Ultimate Omega","quantity":640,"quantityUnits":"mg per Soft Gel","servingUnit":"mg","numUnitsInServing":1280,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Genistein from Sophora Japonica","quantity":60,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":125,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Ginger Root","quantity":100,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":550,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Glucosamine Sulfate","quantity":240,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":750,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Glycine","quantity":250,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":1000,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Liquid Iodine Plus","quantity":59,"quantityUnits":"ml","servingUnit":"ml","numUnitsInServing":0.126,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Super K","quantity":90,"quantityUnits":"caps","servingUnit":"mcg","numUnitsInServing":1500,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Lithium","quantity":100,"quantityUnits":"caps","servingUnit":"mcg","numUnitsInServing":1000,"numBottles":1},{"orderDate":"2014-02-04T23:00:00.000Z","name":"Hyaluronic Acid","quantity":30,"quantityUnits":"caps","servingUnit":"mg","numUnitsInServing":200,"numBottles":1}
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Ashwagandha",
+    "quantity": 120,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 300,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Crucera-SGS",
+    "quantity": 60,
+    "quantityUnits": "caps",
+    "servingUnit": "caps",
+    "numUnitsInServing": 1,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "High Absorption CoQ10 with BioPerine",
+    "quantity": 120,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 100,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Ultimate Omega",
+    "quantity": 640,
+    "quantityUnits": "mg per Soft Gel",
+    "servingUnit": "mg",
+    "numUnitsInServing": 1280,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Genistein from Sophora Japonica",
+    "quantity": 60,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 125,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Ginger Root",
+    "quantity": 100,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 550,
+    "numBottles": 3
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Glucosamine Sulfate",
+    "quantity": 240,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 750,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Glycine",
+    "quantity": 250,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 1000,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Liquid Iodine Plus",
+    "quantity": 59,
+    "quantityUnits": "ml",
+    "servingUnit": "ml",
+    "numUnitsInServing": 0.126,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Super K",
+    "quantity": 90,
+    "quantityUnits": "caps",
+    "servingUnit": "mcg",
+    "numUnitsInServing": 1500,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Lithium",
+    "quantity": 100,
+    "quantityUnits": "caps",
+    "servingUnit": "mcg",
+    "numUnitsInServing": 1000,
+    "numBottles": 1
+  },
+  {
+    "orderDate": "2024-02-04T23:00:00.000Z",
+    "name": "Hyaluronic Acid",
+    "quantity": 30,
+    "quantityUnits": "caps",
+    "servingUnit": "mg",
+    "numUnitsInServing": 200,
+    "numBottles": 2
+  }
 ]
