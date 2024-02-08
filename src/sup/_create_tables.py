@@ -26,10 +26,14 @@ atexit.register(close_everything)
 
 
 def do_query(create_statement: str) -> None:
+    table_name = None
     try:
         table_name = create_statement.lower().split("create table ")[1].split(" ")[0]
     except IndexError:
-        table_name = create_statement.lower().split("drop table ")[1].split(" ")[0]
+        try:
+            table_name = create_statement.lower().split("drop table ")[1].split(" ")[0]
+        except IndexError:
+            pass
     print(f"{table_name=}")
     print(create_statement)
     try:
@@ -63,17 +67,18 @@ def create_table_products():
             id INT NOT NULL AUTO_INCREMENT,
             name VARCHAR(150) NOT NULL,
             quantity INT NOT NULL,
-            quantity_units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'iu'),
-            serving_units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'iu'),
+            quantity_units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'mcl', 'iu'),
+            serving_units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'mcl', 'iu'),
             num_units_in_serving INT NOT NULL,
-            CONSTRAINT pk_product PRIMARY KEY (id)
+            CONSTRAINT pk_product_name PRIMARY KEY (id, name),
+            CONSTRAINT uq_name_quantity_numunitsinserving UNIQUE KEY (name, quantity, num_units_in_serving)
     )""").strip()
     do_query(query)
 
 
 def create_table_product_aliases():
     query = ("""
-        create table user_product_aliases (
+        CREATE TABLE user_product_aliases (
             user_id VARCHAR(80) NOT NULL,
             product_id INT NOT NULL,
             alias VARCHAR(30) NOT NULL,
@@ -90,11 +95,11 @@ def create_table_user_supplements_consumption():
             user_id VARCHAR(80) NOT NULL,
             product_id INT NOT NULL,
             morning INT DEFAULT 0,
-            lunch INT NULL,
-            dinner INT NULL,
-            bedtime INT NULL,
+            lunch INT DEFAULT 0,
+            dinner INT DEFAULT 0,
+            bedtime INT DEFAULT 0,
             days_per_week INT DEFAULT 7,
-            units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'iu'),
+            units ENUM('caps', 'mg', 'g', 'ml', 'mcg', 'mcl', 'iu'),
             winter_only BOOL DEFAULT false,
             CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users(id),
             CONSTRAINT fk_product_id FOREIGN KEY (product_id) REFERENCES products(id),
@@ -103,7 +108,7 @@ def create_table_user_supplements_consumption():
     do_query(query)
 
 
-def create_table_user_supplements_inventory():
+def create_table_user_supplements_orders():
     query = ("""
         create table user_supplements_orders (
             user_id VARCHAR(80) NOT NULL,
@@ -130,19 +135,30 @@ def create_tables1():
         return
 
 def create_tables2():
-    # try:
-    #     create_table_user_supplements_consumption()
-    # except Exception:
-    #     return
-    # create_table_user_supplements_inventory()
-    create_table_product_aliases()
+    try:
+        create_table_user_supplements_consumption()
+    except Exception:
+        return
+    try:
+        create_table_user_supplements_orders()
+    except Exception:
+        do_query("drop table user_supplements_consumption")
+    try:
+        create_table_product_aliases()
+    except Exception:
+        do_query("drop table user_supplements_consumption")
+        do_query("drop table user_supplements_orders")
+
 
 def drop_tables():
-    do_query("drop table users")
-    do_query("drop table products")
     do_query("drop table user_supplements_consumption")
     do_query("drop table user_supplements_orders")
+    do_query("drop table user_product_aliases")
+    do_query("drop table users")
+    do_query("drop table products")
 
 
-# drop_tables()
-create_tables2()
+if __name__ == "__main__":
+    drop_tables()
+    create_tables1()
+    create_tables2()

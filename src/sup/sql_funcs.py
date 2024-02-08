@@ -15,7 +15,8 @@ cnx = mysql.connector.connect(
       host=os.getenv("PLANETSCALE_HOST"),
       database=DB_NAME,
 )
-cursor = cnx.cursor()
+cursor = cnx.cursor(buffered=True)
+dict_cursor = cnx.cursor(dictionary=True)
 
 def close_everything():
     cnx.close()
@@ -24,11 +25,18 @@ def close_everything():
 atexit.register(close_everything)
 
 
-def do_query(query: str) -> None:
+def do_query(query: str, get_result: bool = False, commit: bool = False, return_dict: bool = False) -> list | None:
+    print(query)
+    c = cursor if not return_dict else dict_cursor
     try:
-        cursor.execute(query)
+        c.execute(query)
     except mysql.connector.Error as err:
         print(err.msg)
         raise
-    # TODO: return something if appropriate
+    if commit:
+        cnx.commit()
+    if get_result:
+        return cursor.fetchall()
 
+def commit():
+    cnx.commit()

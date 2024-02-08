@@ -12,10 +12,9 @@ from sup.main import (
     load_config,
     SUPP_CONSUMPTION_FP,
     load_inventory,
-    CONFIG,
-    ALIASES_REV,
 )
 from sup.models import Supp
+from sup.queries import get_user
 
 
 app = typer.Typer()
@@ -97,20 +96,20 @@ def status():
     TODO: this doesn't seem to sense pending orders which have been added to inventory.json
           maybe because the delivery date is in the present/future?
     """
-    validate_matches()
+    # TODO: make this an arg
+    user_id = "zev@averba.ch"
 
-    config = load_config()
-
-    num_days_of_inventory_needed = config["FILL_EVERY_X_DAYS"]
-   
+    user = get_user(user_id)
+    num_days_of_inventory_needed = user["fill_every_x_days"]
     last_fill_date = dt.datetime.strptime(
-        config["LAST_FILL_DATE"], "%Y-%m-%d"
+        user["last_fill_date"], "%Y-%m-%d"
     ).date()
     next_fill_date = last_fill_date + dt.timedelta(num_days_of_inventory_needed)
     print()
     print(f"{next_fill_date=}")
     print()
-    inventory = load_inventory()
+    # TODO: this is where you left off
+    inventory = load_inventory(user_id)
 
     needs = []
 
@@ -185,7 +184,7 @@ def add(
         date = dt.datetime.now().date()  # type: ignore
     else:
         date = date.date()  # type: ignore
-    ordered_supps = load_ordered_supps()
+    ordered_supps = load_ordered_supps(user_id)
     order_dict = dict(
         name=name,
         quantity=quantity,
@@ -204,27 +203,7 @@ def save_ordered_supps(ordered_supps: list[dict]) -> None:
     ORDERED_SUPPS_FP.write_text(json.dumps(ordered_supps, indent=2))
 
 
-def _prettify_json():
-    ORDERED_SUPPS_FP.write_text(json.dumps(json.loads(ORDERED_SUPPS_FP.read_text()), indent=2))
-
-
 def save_config(config: dict) -> None:
     SUPP_CONSUMPTION_FP.write_text(toml.dumps(config))
 
 
-def validate_matches() -> None:
-    missing = []
-
-    ordered_supp_names_lower = [i["name"].lower() for i in load_ordered_supps()]
-    for i in CONFIG["supps"]:
-        if (
-            not any(
-                i["name"].lower() in ordered_supp_name
-                for ordered_supp_name in ordered_supp_names_lower
-            )
-            and i["name"].lower() not in ALIASES_REV
-        ):
-            missing.append(i["name"])
-
-    if missing:
-        raise Missing(", ".join(missing))

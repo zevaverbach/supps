@@ -31,7 +31,8 @@ Okay, next fill-up set to <date X days from now> (configured in `sup.toml`::FILL
 
 TODO: talk about product_aliases
 
-To configure what you take, how much, and when, add entries to `supps.toml`.  The fields are configured as such in the `Supp` class:
+To configure what you take, how much, and when, add entries to `supps.toml`.  
+The fields are configured as such in the `Supp` class:
 
 ```python
 name: str

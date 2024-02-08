@@ -16,7 +16,7 @@ morning = 12
 
 [[supps]]
 name = "b complex"
-morning = 0.5
+morning = 1
 days_per_week = 2
 units = "caps"
 
@@ -42,9 +42,8 @@ morning = 500
 
 [[supps]]
 name = "creatine"
-lunch = 2.5
+lunch = 2500
 days_per_week = 4
-units = "g"
 
 [[supps]]
 name = "Ca-AKG"
@@ -73,7 +72,7 @@ morning = 67
 days_per_week = 3
 
 [[supps]]
-name = "EPA/DHA"
+name = "epa/dha"
 morning = 1280
 dinner = 640
 
@@ -106,8 +105,8 @@ morning = 300
 
 [[supps]]
 name = "iodine"
-morning = 0.126
-units = "ml"
+morning = 126
+units = "mcl"
 
 [[supps]]
 name = "iron"

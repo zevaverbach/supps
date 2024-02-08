@@ -10,7 +10,7 @@ class Supp:
     dinner: int | float = 0
     bedtime: int | float = 0
     days_per_week: int = 7
-    units: t.Literal["caps", "mg", "g", "ml", "mcg", "iu"] = "mg"
+    units: t.Literal["caps", "mg", "g", "ml", "mcg", "mcl", "iu"] = "mg"
     winter_only: bool = False
 
     def __mul__(self, other: int) -> float:
